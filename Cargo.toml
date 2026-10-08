@@ -1,0 +1,17 @@
+[package]
+name = "gray-webhooks"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.91"
+license = "MIT"
+description = "Inbound HTTP webhooks on 127.0.0.1 become agent turns. Original work."
+
+[[bin]]
+name = "gray-webhooks"
+path = "src/main.rs"
+
+[dependencies]
+serde_json = "1"
+
+[profile.release]
+strip = true
