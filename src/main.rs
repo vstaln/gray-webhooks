@@ -546,6 +546,7 @@ fn manifest() -> Value {
             }
         }],
         "commands": ["/webhook"],
+        "command_descriptions": {"/webhook": "add and inspect inbound webhooks"},
         "hooks": ["agent/before_start"],
     })
 }
