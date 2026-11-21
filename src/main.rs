@@ -519,9 +519,8 @@ fn run_command(sh: &Arc<Shared>, argv: &[&str]) -> String {
                 return format!("bad name '{name}' — letters, digits, - and _ only (≤64 chars)");
             }
             let Some(path) = normalize_path(path) else {
-                return format!(
-                    "bad path — need something like /deploy or /ci-done (no spaces, no query)"
-                );
+                return "bad path — need something like /deploy or /ci-done (no spaces, no query)"
+                    .to_string();
             };
             let mut routes = sh.routes.lock().expect("routes");
             if let Some((other, _)) = routes
