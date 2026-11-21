@@ -143,7 +143,7 @@ fn normalize_path(p: &str) -> Option<String> {
     } else {
         format!("/{p}")
     };
-    if p.len() < 2 || p.contains('?') || p.contains(' ') || !p.chars().all(|c| c.is_ascii()) {
+    if p.len() < 2 || p.contains('?') || p.contains(' ') || !p.is_ascii() {
         return None;
     }
     Some(p)
@@ -357,7 +357,7 @@ fn browser_origin(host: &str, origin: &str) -> bool {
     let h = host
         .trim()
         .trim_start_matches('[')
-        .split(|c| c == ']' || c == ':')
+        .split([']', ':'])
         .next()
         .unwrap_or("")
         .to_lowercase();
