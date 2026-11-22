@@ -143,7 +143,7 @@ fn normalize_path(p: &str) -> Option<String> {
     } else {
         format!("/{p}")
     };
-    if p.len() < 2 || p.contains('?') || p.contains(' ') || !p.chars().all(|c| c.is_ascii()) {
+    if p.len() < 2 || p.contains('?') || p.contains(' ') || !p.is_ascii() {
         return None;
     }
     Some(p)
@@ -357,7 +357,7 @@ fn browser_origin(host: &str, origin: &str) -> bool {
     let h = host
         .trim()
         .trim_start_matches('[')
-        .split(|c| c == ']' || c == ':')
+        .split([']', ':'])
         .next()
         .unwrap_or("")
         .to_lowercase();
@@ -519,9 +519,8 @@ fn run_command(sh: &Arc<Shared>, argv: &[&str]) -> String {
                 return format!("bad name '{name}' — letters, digits, - and _ only (≤64 chars)");
             }
             let Some(path) = normalize_path(path) else {
-                return format!(
-                    "bad path — need something like /deploy or /ci-done (no spaces, no query)"
-                );
+                return "bad path — need something like /deploy or /ci-done (no spaces, no query)"
+                    .to_string();
             };
             let mut routes = sh.routes.lock().expect("routes");
             if let Some((other, _)) = routes
